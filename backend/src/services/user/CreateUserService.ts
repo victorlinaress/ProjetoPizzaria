@@ -14,7 +14,7 @@ class CreateUserService {
         if (!email){
             throw new Error("Email Incorrect") 
         }
-
+      //verificar se já está cadastrado
         const userAlreadyExists = await prismaClient.user.findFirst({
             where:{
                 email: email
@@ -30,6 +30,11 @@ class CreateUserService {
                 name:name,
                 email: email,
                 password: password
+            },
+            select:{ //o que vai retornar 
+                id:true,
+                email: true,
+                name: true
             }
         })
         return user;

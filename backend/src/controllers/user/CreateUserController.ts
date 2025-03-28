@@ -15,8 +15,10 @@ class CreateUserController {
             });
 
             return res.json(user);
-    
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
         }
-    }}
+    }
+}
 
 export { CreateUserController };

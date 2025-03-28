@@ -1,9 +1,10 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
+import { CreateUserController } from "./controllers/user/CreateUserController";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.json({ message: "API funcionando corretamente!" });
-});
+const createUserController = new CreateUserController();
 
-export default router;
+router.post("/users", (req, res) => createUserController.handle(req, res));
+
+export { router };
