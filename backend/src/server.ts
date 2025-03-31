@@ -6,16 +6,16 @@ import "dotenv/config"
 
 const app = express();
 
-// Middleware para entender JSON
+// middleware para entender JSON
 app.use(express.json());
 
-// Middleware para CORS
+// middleware para CORS
 app.use(cors());
 
-// As rotas são registradas aqui
+// as rotas são registradas aqui
 app.use(router);
 
-// Middleware para tratar erros
+// middleware para tratar erros
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
     return res.status(400).json({
@@ -23,14 +23,15 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     });
   }
 
-  // Se o erro não for uma instância de Error, retorna erro genérico
+
+  // se o erro não for uma instância de Error, retorna erro genérico
   return res.status(500).json({
     status: "error",
     message: "Erro interno do servidor",
   });
 });
 
-// O servidor começa a rodar na porta 3333
+// o servidor começa a rodar na porta 3333
 app.listen(3333, () => {
   console.log("Servidor rodando na porta 3333");
 });

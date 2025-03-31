@@ -6,7 +6,6 @@ import DetailsUserController from "./controllers/user/DetailsUserController";
 
 const router = Router();
 
-// Definição das rotas
 router.post("/users", async (req, res) => {
   return await new CreateUserController().handle(req, res);
 });

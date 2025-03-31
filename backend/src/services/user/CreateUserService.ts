@@ -9,7 +9,6 @@ interface UserRequest {
 
 class CreateUserService {
   async execute({ name, email, password }: UserRequest) {
-    console.log(name);
 
     //verificar se enviou um email
     if (!email) {
@@ -42,7 +41,7 @@ class CreateUserService {
         email: true,
         name: true,
       },
-    });
+    }); 
     return user;
   }
 }

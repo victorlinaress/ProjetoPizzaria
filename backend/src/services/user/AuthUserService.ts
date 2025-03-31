@@ -30,7 +30,7 @@ class AuthUserService {
 
         //se deu certo, vamos gerar um token para o usuaruio
 
-        const token =  sign (
+        const token = sign (
             {
                 name: user.name,
                 email: user.email

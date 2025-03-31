@@ -15,11 +15,11 @@ class CreateUserController {
         password,
       });
 
-      return res.json(user);  // Se tudo ocorrer bem, retorna o usuário
+      return res.json(user);  // se tudo ocorrer bem, retorna o usuário
     } catch (error) {
-      console.error(error);  // Aqui você captura e loga o erro
+      console.error(error);  //captura e loga o erro
       return res.status(500).json({
-        error: error.message,  // Retorna uma resposta com o erro
+        error: error.message,  // retorna uma resposta com o erro
       });
     }
   }
