@@ -5,11 +5,7 @@ interface PayLoad {
   sub: string;
 }
 
-function isAuthenticated(
-  req: Request,
-  resp: Response,
-  next: NextFunction
-) {
+function isAuthenticated(req: Request, resp: Response, next: NextFunction) {
   //receber o token
 
   const authToken = req.headers.authorization;
@@ -23,7 +19,8 @@ function isAuthenticated(
   try {
     //validação do token
     const { sub } = verify(token, process.env.JWT_SECRET) as PayLoad;
-
+    //recuperar o id do token e colocar dentro de uma variavel user_id dentro do request 
+    req.user_id = sub; 
     return next();
   } catch (error) {
     //se não validar, mostrar erro
