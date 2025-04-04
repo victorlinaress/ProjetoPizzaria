@@ -3,6 +3,7 @@ import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
 import DetailsUserController from "./controllers/user/DetailsUserController";
+import { CreateCategoryController } from "./controllers/user/category/createCategoryController";
 
 const router = Router();
 
@@ -18,4 +19,8 @@ router.get("/me", isAuthenticated, async (req, res) => {
   return await new DetailsUserController().handle(req, res);
 });
 
+
+//rotas category
+
+router.post ('/category', isAuthenticated, new CreateCategoryController ().handle)
 export { router };
