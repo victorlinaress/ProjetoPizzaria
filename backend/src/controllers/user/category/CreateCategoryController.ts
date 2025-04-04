@@ -9,7 +9,7 @@ class CreateCategoryController {
     const createCategoryService = new CreateCategoryService();
 
     const category = await createCategoryService.execute({
-        name
+      name,
     });
 
     return rep.json(category);
