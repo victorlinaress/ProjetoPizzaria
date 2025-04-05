@@ -8,10 +8,11 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 
 import { CreateCategoryController } from "./controllers/user/category/CreateCategoryController";
 import { ListCategoryController } from "./controllers/user/category/ListCategoryController";
+import { CreateProductController } from "./controllers/product/CreateProductController";
 
 const router = Router();
 
-// Rotas de usuário
+// rotas de usuário
 router.post("/users", async (req, res) => {
   return await new CreateUserController().handle(req, res);
 });
@@ -24,8 +25,17 @@ router.get("/me", isAuthenticated, async (req, res) => {
   return await new DetailsUserController().handle(req, res);
 });
 
-// Rotas de categoria
-router.post("/category", isAuthenticated, new CreateCategoryController().handle);
+// rotas de categoria
+router.post(
+  "/category",
+  isAuthenticated,
+  new CreateCategoryController().handle
+);
 router.get("/category", isAuthenticated, new ListCategoryController().handle);
+
+//rotas de produto
+
+router.post(/'product', isAuthenticated, new CreateProductController().handle)
+
 
 export { router };
