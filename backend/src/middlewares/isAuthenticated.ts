@@ -14,7 +14,9 @@ function isAuthenticated(req: Request, resp: Response, next: NextFunction) {
     return resp.status(401).end();
   }
 
-  const [, token] = authToken.split("");
+
+  const [, token] = authToken.split(" "); 
+
 
   try {
     //validação do token
