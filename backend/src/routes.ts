@@ -10,6 +10,7 @@ import { CreateCategoryController } from "./controllers/category/CreateCategoryC
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
 import { ListByCategoriesController } from "./controllers/product/ListProductController";
+import { CreateOrderController } from "./controllers/orders/CreateOrderController";
 
 import multer from "multer";
 import uploadConfig from "./config/multer";
@@ -49,5 +50,10 @@ router.post(
 );
 
 router.get('/category/product', isAuthenticated, new ListByCategoriesController().handle)
+
+
+//Rotas Order
+
+router.post('/order', isAuthenticated, new CreateOrderController().handle)
 
 export { router };
