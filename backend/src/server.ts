@@ -3,6 +3,7 @@ import "express-async-errors"; // Para usar async/await com tratamento de erros
 import { router } from "./routes"; // Importação das rotas
 import cors from "cors";
 import "dotenv/config"
+import path from "path";
 
 const app = express();
 
@@ -14,6 +15,10 @@ app.use(cors());
 
 // as rotas são registradas aqui
 app.use(router);
+
+app.use(
+  '/files', express.static(path.resolve(__dirname, '..', 'tmp'))
+)
 
 // middleware para tratar erros
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
