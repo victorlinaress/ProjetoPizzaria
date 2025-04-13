@@ -1,23 +1,22 @@
 import { Router } from "express";
-
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 import DetailsUserController from "./controllers/user/DetailsUserController";
-
 import { isAuthenticated } from "./middlewares/isAuthenticated";
-
 import { CreateCategoryController } from "./controllers/category/CreateCategoryController";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
 import { ListByCategoriesController } from "./controllers/product/ListProductController";
 import { CreateOrderController } from "./controllers/orders/CreateOrderController";
-
 import multer from "multer";
 import uploadConfig from "./config/multer";
 import { RemoveOrderController } from "./controllers/orders/RemoveOrderController";
 import { AddItemController } from "./controllers/orders/AddItemController";
 import { RemoveItemController } from "./controllers/orders/RemoveItemController";
 import { SendOrderController } from "./controllers/orders/SendOrderController";
+import { ListOrdersController } from "./controllers/orders/ListOrdersController";
+import { DetailsOrderController } from "./controllers/orders/DetailsOrderController";
+import { FinishOrderController } from "./controllers/orders/FinishOrderController";
 
 const router = Router();
 
@@ -69,6 +68,10 @@ router.delete(
   isAuthenticated,
   new RemoveItemController().handle;
   router.put("/order/send", isAuthenticated, new SendOrderController().handle);
+  router.get('/orders', isAuthenticated, new ListOrdersController().handle )
+  router.get('order/detail', isAuthenticated, new DetailsOrderController().handle)
+  router.put('order/finish', isAuthenticated, new FinishOrderController().handle)
+
 );
 
 export { router };
