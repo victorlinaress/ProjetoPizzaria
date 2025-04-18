@@ -1,16 +1,16 @@
-import styles from './page.module.scss';
-import Link from 'next/link';
-import Image from 'next/image'
+import Link from "next/link";
+import Image from "next/image";
+import styles from "./page.module.scss";
 
 export default function Page() {
   return (
-    <main>
-      <h1 className={styles.containerCenter}>
-        <Image src="/logo.png" alt="Logo" width={120} height={120} />
-      </h1>
+    <main className={styles.containerCenter}>
+      <div className={styles.logoWrapper}>
+        <Image src="/logo.png" alt="Logo" width={150} height={150} />
+      </div>
 
       <section className={styles.login}>
-        <form>
+        <form className={styles.form}>
           <input
             type="email"
             required
@@ -27,10 +27,12 @@ export default function Page() {
             className={styles.input}
           />
 
-          <button type='submit'>Acessar</button>
+          <button type="submit" className={styles.button}>
+            Acessar
+          </button>
         </form>
 
-        <Link href="" className={styles.text}>
+        <Link href="/signup#" className={styles.text}>
           Não possui uma conta? Cadastre
         </Link>
       </section>
