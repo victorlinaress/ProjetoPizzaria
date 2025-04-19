@@ -1,8 +1,41 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./page.module.scss";
+import { api } from "@/services/api";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export default function Page() {
+  async function handleLogin(formData: FormData) {
+    "use server";
+
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (email === "" || password === "") {
+      return;
+    }
+
+    try {
+      const response = await api.post("session", {
+        email,
+        password,
+      });
+
+      if (!response.data.token) { //parar a execução, se não tiver o token
+        return
+      }
+
+      console.log(response.data);
+
+    } catch (err) {
+      console.log(err);
+      return;
+    }
+
+    redirect("/dashboard");
+  }
+
   return (
     <main className={styles.containerCenter}>
       <div className={styles.logoWrapper}>
@@ -10,8 +43,7 @@ export default function Page() {
       </div>
 
       <section className={styles.login}>
-  
-        <form className={styles.form}>
+        <form action={handleLogin} className={styles.form}>
           <input
             type="email"
             required
@@ -33,7 +65,7 @@ export default function Page() {
           </button>
         </form>
 
-        <Link href="/signup#" className={styles.text}>
+        <Link href="/signup" className={styles.text}>
           Não possui uma conta? Cadastre
         </Link>
       </section>
