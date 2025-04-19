@@ -10,6 +10,7 @@ export default function Page() {
       </div>
 
       <section className={styles.login}>
+  
         <form className={styles.form}>
           <input
             type="email"
