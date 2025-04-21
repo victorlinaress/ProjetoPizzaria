@@ -9,39 +9,47 @@ export default function Page() {
   async function handleLogin(formData: FormData) {
     "use server";
 
-    const email = formData.get("email");
-    const password = formData.get("password");
+    // garantindo que os valores são convertidos para string e removendo espaços extras
+    const email = formData.get("email")?.toString().trim();
+    const password = formData.get("password")?.toString().trim();
 
-    if (email === "" || password === "") {
+    // verificando se os campos estão preenchidos corretamente
+    if (!email || !password) {
+      console.log("Preencha todos os campos");
       return;
     }
 
     try {
-      const response = await api.post("session", {
+      // requisição para o endpoint de login
+      const response = await api.post("/session", {
         email,
         password,
       });
 
+      // verifica se o token foi retornado na resposta
       if (!response.data.token) {
+        console.log("Token não retornado.");
         return;
       }
 
-      const expireTime = 60 * 60 * 24 * 30; // define o texto de expiração segundos
-      const cookieStore = await cookies(); // espera a função cookies
+      const expireTime = 60 * 60 * 24 * 30; 
+      const cookieStore = await cookies(); 
 
-      cookieStore.set("session", response.data.token, { //passando o token para o cookie
-        maxAge: expireTime, //duração do cookie
-        path: "/", //acessivel em toda aplicação
-        httpOnly: false, //acessivel no cliente-side
-        secure: false //em produção ele fica true
+      // armazena o token no cookie
+      cookieStore.set("session", response.data.token, {
+        maxAge: expireTime,
+        path: "/", // acessível em toda a aplicação
+        httpOnly: false, // disponível no lado do cliente
+        secure: false, // em produção, você deve definir como 'true'
       });
 
-      console.log(response.data);
+      console.log("Token recebido:", response.data.token);
     } catch (err) {
-      console.log(err);
+      console.log("Erro no login:", err);
       return;
     }
 
+    // redireciona para a página de dashboard após o login
     redirect("/dashboard");
   }
 
@@ -52,6 +60,7 @@ export default function Page() {
       </div>
 
       <section className={styles.login}>
+        {/* formulário de login */}
         <form action={handleLogin} className={styles.form}>
           <input
             type="email"
@@ -74,6 +83,7 @@ export default function Page() {
           </button>
         </form>
 
+        {/* link para página de cadastro */}
         <Link href="/signup" className={styles.text}>
           Não possui uma conta? Cadastre
         </Link>

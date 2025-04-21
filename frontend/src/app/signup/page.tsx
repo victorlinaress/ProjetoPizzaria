@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 
 export default function Signup() {
   async function handleRegister(formData: FormData) {
-    "user server";
+    "use server";
 
     const name = formData.get("name");
     const email = formData.get("email");
@@ -39,7 +39,7 @@ export default function Signup() {
       <section className={styles.login}>
         <h1 className={styles.title}>Criando a sua conta</h1>
 
-        <form className={styles.form}>
+        <form className={styles.form} action={handleRegister}>
           <input
             type="email"
             required
