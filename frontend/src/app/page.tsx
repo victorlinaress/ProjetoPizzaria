@@ -22,12 +22,21 @@ export default function Page() {
         password,
       });
 
-      if (!response.data.token) { //parar a execução, se não tiver o token
-        return
+      if (!response.data.token) {
+        return;
       }
 
-      console.log(response.data);
+      const expireTime = 60 * 60 * 24 * 30; // define o texto de expiração segundos
+      const cookieStore = await cookies(); // espera a função cookies
 
+      cookieStore.set("session", response.data.token, { //passando o token para o cookie
+        maxAge: expireTime, //duração do cookie
+        path: "/", //acessivel em toda aplicação
+        httpOnly: false, //acessivel no cliente-side
+        secure: false //em produção ele fica true
+      });
+
+      console.log(response.data);
     } catch (err) {
       console.log(err);
       return;
