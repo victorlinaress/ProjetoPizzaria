@@ -3,6 +3,7 @@
 import { ChangeEvent, useState } from "react";
 import styles from "./styles.module.scss";
 import { UploadCloud } from "lucide-react";
+import Image from "next/image";
 
 export function Form() {
   const [image, setImage] = useState<File>();
@@ -35,8 +36,21 @@ export function Form() {
             accept="image/png, image/jpg"
             required
             onChange={handleFile}
-            style={{ display: "none" }} 
+            style={{ display: "none" }}
           />
+
+          {previewImage && (
+            <div className={styles.previewWrapper}>
+              <Image
+                alt="Imagem de Preview"
+                src={previewImage}
+                className={styles.preview}
+                width={300}
+                height={300}
+                quality={100}
+              />
+            </div>
+          )}
         </label>
       </form>
     </main>
