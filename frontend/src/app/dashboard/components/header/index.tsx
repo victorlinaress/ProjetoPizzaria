@@ -1,8 +1,8 @@
-import styles from "./header.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import logoImg from "../../../public/logo.png";
 import { LogOutIcon } from "lucide-react";
+import styles from './styles.module.scss'
+import logoImg from "../../../public/logo.png";
 
 export function Header() {
   return (
@@ -11,9 +11,10 @@ export function Header() {
         <Link href="/dashboard">
           <Image
             alt="Logo Sujeito Pizza"
-            src="logo.png"
+            src="/logo.png"
             width={190}
             height={60}
+            className={styles.logo}
             priority
           />
         </Link>

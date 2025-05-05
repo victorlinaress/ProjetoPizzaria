@@ -8,6 +8,11 @@
   align-items: center;
   justify-content: space-between;
 
+  .logo{
+    width: 150px;;
+    height: 150px;
+  }
+
   nav {
     display: flex;
     align-items: center;
@@ -20,6 +25,8 @@
       &:hover {
         color: var(--red-900);
       }
+
+     
     }
 
     button {

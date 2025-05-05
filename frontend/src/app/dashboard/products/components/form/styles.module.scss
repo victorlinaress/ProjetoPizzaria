@@ -13,11 +13,77 @@
     display: flex;
     flex-direction: column;
     margin: 16px 0;
+    gap: 16px;
+
+    select {
+      width: 100%;
+      height: 40px;
+      border-radius: 8px;
+      background-color: var(--dark-900);
+      color: var(--white);
+      padding: 0 8px;
+      border: 1px solid var(--gray-100);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 120px;
+      resize: none;
+      padding: 8px;
+      background-color: var(--dark-900);
+      color: var(--white);
+      border-radius: 8px;
+      border: 1px solid var(--gray-100);
+    }
   }
 
   .labelImage {
     width: 100%;
     height: 280px;
     position: relative;
+    background-color: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-direction: column;
+    margin-bottom: 16px;
+
+    input {
+      display: none;
+    }
+
+    span {
+      z-index: 99; // Ficar sobre a imagem
+      opacity: 0.8;
+      transition: all 0.6s;
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .input {
+    border: 0;
+    height: 40px;
+    background-color: var(--dark-900);
+    border: 1px solid var(--gray-100);
+    border-radius: 8px;
+    padding: 0 8px;
+    color: var(--white);
   }
 }
