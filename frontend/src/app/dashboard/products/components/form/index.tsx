@@ -4,10 +4,32 @@ import { ChangeEvent, useState } from "react";
 import styles from "./styles.module.scss";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
+import { Button } from "@/app/dashboard/components/button";
 
-export function Form() {
+
+interface CategoryProps {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  categories: CategoryProps[];
+}
+
+export function Form({ categories }: Props) {
   const [image, setImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState("");
+
+  async function await handleRegisterProduction (formData: FormData) {
+
+    const category = formData.get("category")
+    const name = formData.get("name")
+    const price = formData.get("price")
+    const description = formData.get("description")
+
+    
+
+  }
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
@@ -28,7 +50,7 @@ export function Form() {
     <main className={styles.container}>
       <h1>Novo produto</h1>
 
-      <form className={styles.form}>
+      <form className={styles.form} action={handleRegisterProduct}>
         <label className={styles.labelImage}>
           <UploadCloud size={24} color="#FFF" />
           <input
@@ -53,9 +75,11 @@ export function Form() {
         </label>
 
         <select name="category" required className={styles.input}>
-          <option value="">Selecione uma categoria</option>
-          <option value="1">Pizzas</option>
-          <option value="2">Massas</option>
+          {categories.map((category, index) => (
+            <option key={category.id} value={index}>
+              {category.name}
+            </option>
+          ))}
         </select>
 
         <input
@@ -80,6 +104,8 @@ export function Form() {
           required
           className={styles.input}
         />
+
+        <Button name="Cadastrar produto"></Button>
       </form>
     </main>
   );

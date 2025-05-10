@@ -1,9 +1,19 @@
 import { Form } from "./products/components/form";
+import { api } from "@/services/api";
+import { getCookieServer } from "@/lib/cookieServer";
 
-export default function DashBoard() {
+export default async function Product() {
+  const token = await getCookieServer();
+
+  const response = await api.get("/category", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return (
     <div>
-      <Form />
+      <h1>Formulário</h1>
     </div>
   );
 }
