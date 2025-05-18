@@ -5,7 +5,9 @@ import styles from "./styles.module.scss";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/app/dashboard/components/button";
-
+import { api } from "@/services/api";
+import { getCookieClient } from "@/lib/cookieCliente";
+import { get } from "http";
 
 interface CategoryProps {
   id: string;
@@ -20,16 +22,37 @@ export function Form({ categories }: Props) {
   const [image, setImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState("");
 
-  async function await handleRegisterProduction (formData: FormData) {
+  async function handleRegisterProduct(formData: FormData) {
+    const category = formData.get("category");
+    const name = formData.get("name");
+    const price = formData.get("price");
+    const description = formData.get("description");
 
-    const category = formData.get("category")
-    const name = formData.get("name")
-    const price = formData.get("price")
-    const description = formData.get("description")
+    if (!name || !category || !price || !description || !image) {
+      return;
+    }
 
-    
+   try {
+  const data = new FormData(); //file envia em formato de formData
 
-  }
+  data.append("name", name);
+  data.append("price", price);
+  data.append("description", description);
+  data.append("category_id", categories[Number(categoryIndex)].id);
+  data.append("file", image);
+
+  const token = getCookieClient();
+
+  await api.post("/product", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+} catch (err) {
+  console.log(err);
+  return;
+}
+
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
@@ -105,7 +128,7 @@ export function Form({ categories }: Props) {
           className={styles.input}
         />
 
-        <Button name="Cadastrar produto"></Button>
+        <Button name="Cadastrar produto" />
       </form>
     </main>
   );
