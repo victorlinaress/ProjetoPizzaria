@@ -1,19 +1,30 @@
-import { Form } from "./products/components/form";
+import { Orders } from "./components/orders";
 import { api } from "@/services/api";
 import { getCookieServer } from "@/lib/cookieServer";
+import { OrderProps } from "@/lib/order.type";
 
-export default async function Product() {
-  const token = await getCookieServer();
+async function getOrders(): Promise<OrderProps[] | []> {
+  try {
+    const token = getCookieServer();
+    const response = await api.get("/orders", {
+      headers: {
+        Authorization: `Bearer ${token} `,
+      },
+    });
 
-  const response = await api.get("/category", {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+    return response.data || []; //retorna a resposta da api
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
+}
 
+export default async function Dashboard() {
+  const orders = await getOrders();
+  console.log(orders);
   return (
-    <div>
-      <h1>Formulário</h1>
-    </div>
+    <>
+      <Orders></Orders>
+    </>
   );
 }
