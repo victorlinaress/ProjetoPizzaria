@@ -1,10 +1,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { LogOutIcon } from "lucide-react";
-import styles from './styles.module.scss'
+import styles from "./styles.module.scss";
 import logoImg from "../../../public/logo.png";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
+import { deleteCookie } from "cookies-next";
 
 export function Header() {
+  const router = useRouter();
+
+  async function handleLogout() {
+    deleteCookie("session", { path: "/" });
+    toast.success("Logout feito com sucesso");
+    router.replace("/");
+  }
   return (
     <header className={styles.headerContainer}>
       <div className={styles.headerContent}>
@@ -24,7 +34,7 @@ export function Header() {
           <Link href={"/dashboard/product"}>Produto</Link>
 
           <form>
-            <button type="submit" ></button>
+            <button type="submit"></button>
             <LogOutIcon size={24} color="#FFF"></LogOutIcon>
           </form>
         </nav>

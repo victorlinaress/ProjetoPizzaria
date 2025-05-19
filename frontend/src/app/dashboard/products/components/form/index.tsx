@@ -7,7 +7,8 @@ import Image from "next/image";
 import { Button } from "@/app/dashboard/components/button";
 import { api } from "@/services/api";
 import { getCookieClient } from "@/lib/cookieCliente";
-import { get } from "http";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 interface CategoryProps {
   id: string;
@@ -19,47 +20,52 @@ interface Props {
 }
 
 export function Form({ categories }: Props) {
+  const router = useRouter();
   const [image, setImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState("");
 
   async function handleRegisterProduct(formData: FormData) {
-    const category = formData.get("category");
+    const categoryIndex = formData.get("category");
     const name = formData.get("name");
     const price = formData.get("price");
     const description = formData.get("description");
 
-    if (!name || !category || !price || !description || !image) {
+    if (!name || !categoryIndex || !price || !description || !image) {
+      toast.warning("Preencha todos os campos");
       return;
     }
 
-   try {
-  const data = new FormData(); //file envia em formato de formData
+    try {
+      const data = new FormData();
 
-  data.append("name", name);
-  data.append("price", price);
-  data.append("description", description);
-  data.append("category_id", categories[Number(categoryIndex)].id);
-  data.append("file", image);
+      data.append("name", name);
+      data.append("price", price);
+      data.append("description", description);
+      data.append("category_id", categories[Number(categoryIndex)].id);
+      data.append("file", image);
 
-  const token = getCookieClient();
+      const token = getCookieClient();
 
-  await api.post("/product", data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-} catch (err) {
-  console.log(err);
-  return;
-}
+      await api.post("/product", data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
+      toast.success("Produto registrado com sucesso!");
+      router.push("/dashboard");
+    } catch (err) {
+      console.log(err);
+      toast.warning("Falha ao cadastrar esse produto!");
+    }
+  }
 
   function handleFile(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
       const image = e.target.files[0];
 
       if (image.type !== "image/jpg" && image.type !== "image/png") {
-        console.log("FORMATO PROIBIDO");
+        toast.warning("FORMATO PROIBIDO");
         return;
       }
 
