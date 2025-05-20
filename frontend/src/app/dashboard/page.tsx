@@ -20,11 +20,10 @@ async function getOrders(): Promise<OrderProps[] | []> {
 }
 
 export default async function Dashboard() {
-  const orders = await getOrders();
-  console.log(orders);
+  const orders = await getOrders(); //pegar os pedidos
   return (
     <>
-      <Orders></Orders>
+      <Orders orders={orders} /> 
     </>
   );
 }
