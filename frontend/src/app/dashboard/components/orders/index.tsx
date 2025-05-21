@@ -4,7 +4,7 @@ import styles from "./styles.module.scss";
 import { RefreshCcw } from "lucide-react";
 import { OrderProps } from "@/lib/order.type";
 import { Modalorder } from "../modal";
-import use from "react";
+import { useContext } from "react";
 import { OrderContext } from "@/provider/order";
 
 interface Props {
@@ -12,7 +12,11 @@ interface Props {
 }
 
 export function Orders({ orders }: Props) {
-  const { isOpen, onRequestOpen } = use(OrderContext);
+  const { isOpen, onRequestOpen } = useContext(OrderContext);
+
+  function handleDetailsOrder(order_id: string) {
+    onRequestOpen(order_id);
+  }
   return (
     <>
       <main className={styles.container}>
@@ -25,16 +29,20 @@ export function Orders({ orders }: Props) {
 
         <section className={styles.listOrders}>
           {orders.map((order) => (
-            <button key={order.id} className={styles.orderItem}>
+            <button
+              key={order.id}
+              className={styles.orderItem}
+              onClick={() => handleDetailsOrder(order.id)}
+            >
               <div className={styles.tag}>
                 <span>Mesa {order.table}</span>
               </div>
             </button>
           ))}
         </section>
-      </main> 
-      {isOpen && <Modalorder/>}  //se for true, ele renderiza, se tiver false, não renderiza
-
+      </main>
+      {isOpen && <Modalorder />} //se for true, ele renderiza, se tiver false,
+      não renderiza
     </>
   );
 }
