@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
 export default function Page() {
-  async function handleLogin(formData: FormData) {
+  async function handleLogin(formData: FormData) {//processa o login do usuario
     "use server";
 
     // garantindo que os valores são convertidos para string e removendo espaços extras
@@ -32,7 +32,7 @@ export default function Page() {
         return;
       }
 
-      const expireTime = 60 * 60 * 24 * 30; 
+      const expireTime = 60 * 60 * 24 * 30; //tempo da validade do cookie
       const cookieStore = await cookies(); 
 
       // armazena o token no cookie

@@ -7,8 +7,9 @@ import { getCookieClient } from "@/lib/cookieCliente";
 // tipagem do contexto
 type OrderContextData = {
   isOpen: boolean;
-  onRequestOpen: (order_id: string) => void;
-  onRequestClose: (order_id: string) => void;
+  onRequestOpen: (order_id: string) => Promise<void>;
+  onRequestClose: () => void;
+  order: OrderItemProps[];
 };
 
 // tipagem do provider
@@ -22,30 +23,34 @@ export const OrderContext = createContext({} as OrderContextData);
 // provider que envolve os componentes que usarão o contexto
 export function OrderProvider({ children }: OrderProviderProps) {
   const [isOpen, setIsOpen] = useState(false);
-const [order, setOrder] = useState<OrdemItemProps[]>([]);
+  const [order, setOrder] = useState<OrderItemProps[]>([]);
 
-  function onRequestOpen(order_id: string) {
-    console.log(order_id);//
-const token = getCookieClient();
+  async function onRequestOpen(order_id: string) {
+    console.log(order_id);
 
-const response = await api.get("/order/detail", {
-  headers: {
-    Authorization: `Bearer ${token}`
-  },
-  params: {
-    order_id: order_id
+    const token = getCookieClient();
+
+    const response = await api.get("/order/detail", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      params: {
+        order_id: order_id,
+      },
+    });
+
+    setOrder(response.data); // Talvez você queira setar os dados aqui?
+    setIsOpen(true);
   }
-});
-
-setIsOpen(true);
-
 
   function onRequestClose() {
     setIsOpen(false);
   }
 
   return (
-    <OrderContext.Provider value={{ isOpen, onRequestOpen, onRequestClose }}>
+    <OrderContext.Provider
+      value={{ isOpen, onRequestOpen, onRequestClose, order }}
+    >
       {children}
     </OrderContext.Provider>
   );

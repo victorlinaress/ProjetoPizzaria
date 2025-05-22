@@ -8,7 +8,7 @@ export default function Signup() {
   async function handleRegister(formData: FormData) {
     "use server";
 
-    const name = formData.get("name");
+    const name = formData.get("name"); //vai pegar os dados do formulario
     const email = formData.get("email");
     const password = formData.get("password");
 
@@ -18,7 +18,7 @@ export default function Signup() {
     }
 
     try {
-      await api.post("/users", {
+      await api.post("/users", { //vai mandar para o backend
         name,
         email,
         password,

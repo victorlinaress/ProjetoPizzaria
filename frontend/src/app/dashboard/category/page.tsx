@@ -18,7 +18,7 @@ export default function Category() {
     const token = getCookieServer();
 
     try {
-      const response = await api.post('/category', data, {
+      const response = await api.post('/category', data, { //faz a requisição para o backend
         headers: {
           Authorization: `Bearer ${token}`,
         },
