@@ -5,8 +5,15 @@ import styles from "./styles.module.scss";
 import { useContext } from "react";
 import { OrderContext } from "@/provider/order";
 
+
 export function Modalorder() {
-  const { onRequestClose } = useContext(OrderContext);
+  const { onRequestClose, finishOrder, order } = useContext(OrderContext);
+
+  async function handleFinishOrder() {
+    await finishOrder(order[0].order.id)
+
+    
+  }
 
   return (
     <dialog className={styles.dialogContainer}>
@@ -30,7 +37,7 @@ export function Modalorder() {
             <span>Pizza de frango com catupiry, borda recheada</span>
           </section>
 
-          <button className={styles.buttonOrder}>
+          <button className={styles.buttonOrder} onClick={handleFinishOrder}>
             Concluir pedido
           </button>
         </article>
