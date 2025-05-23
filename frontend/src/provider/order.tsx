@@ -79,7 +79,6 @@ export function OrderProvider({ children }: OrderProviderProps) {
       toast.error("Falha ao finalizar esse pedido");
     }
   }
-
   return (
     <OrderContext.Provider
       value={{
