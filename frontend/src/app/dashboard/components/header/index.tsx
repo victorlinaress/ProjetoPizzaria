@@ -1,10 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { LogOutIcon } from "lucide-react";
 import styles from "./styles.module.scss";
 import logoImg from "../../../public/logo.png";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 import { deleteCookie } from "cookies-next";
 
 export function Header() {

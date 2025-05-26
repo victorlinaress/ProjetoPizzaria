@@ -4,7 +4,30 @@ import { createContext, ReactNode, useState } from "react";
 import { api } from "@/services/api";
 import { getCookieClient } from "@/lib/cookieCliente";
 import { toast } from "react-toastify";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+
+export interface OrderItemProps {
+  id: string;
+  amount: number;
+  created_at: string;
+  order_id: string;
+  product_id: string;
+  product: {
+    id: string;
+    name: string;
+    price: string;
+    description: string;
+    banner: string;
+    category_id: string;
+  };
+  order: {
+    id: string;
+    table: number;
+    name: string | null;
+    draft: boolean;
+    status: boolean;
+  };
+}
 
 // Tipagem do contexto
 type OrderContextData = {
@@ -73,7 +96,7 @@ export function OrderProvider({ children }: OrderProviderProps) {
 
       toast.success("Pedido finalizado com sucesso");
       setIsOpen(false);
-      router.reload();
+      router.refresh();
     } catch (err) {
       console.error(err);
       toast.error("Falha ao finalizar esse pedido");
