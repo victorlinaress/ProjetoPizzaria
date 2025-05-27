@@ -18,15 +18,15 @@ export default function Category() {
     const token = getCookieServer();
 
     try {
-      const response = await api.post('/category', data, { //faz a requisição para o backend
+      const response = await api.post("/category", data, {
+        //faz a requisição para o backend
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      // Depois que cadastrar, pode redirecionar, por exemplo:
-      redirect('/dashboard'); 
-      
+      // depois que cadastrar, pode redirecionar, por exemplo:
+      redirect("/dashboard");
     } catch (err) {
       console.log(err);
       return;
@@ -35,7 +35,7 @@ export default function Category() {
 
   return (
     <main className={styles.container}>
-      <h1>Página de categoria</h1>
+      <h1>Nova Categoria</h1>
 
       <form className={styles.form} action={handleRegisterCategory}>
         <input

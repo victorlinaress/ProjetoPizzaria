@@ -24,7 +24,7 @@ export function Header() {
           <Image
             alt="Logo Sujeito Pizza"
             src="/logo.png"
-            width={190}
+            width={200}
             height={60}
             className={styles.logo}
             priority

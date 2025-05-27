@@ -11,7 +11,7 @@ export default function Signup() {
     const name = formData.get("name"); //vai pegar os dados do formulario
     const email = formData.get("email");
     const password = formData.get("password");
-
+     //validação se os dados foram preenchidos
     if (name === "" || email === "" || password === "") {
       console.log("Preencha todos os campos");
       return;

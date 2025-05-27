@@ -28,11 +28,11 @@ export async function middleware(req: NextRequest) {
 }
 
 // função auxiliar fora do middleware
-async function validadeToken(token: string): Promise<boolean> {
+async function validadeToken(token: string): Promise<boolean> {//vai retornar true ou false
   if (!token) return false;
 
   try {
-    await api.get("/me", {
+    await api.get("/me", { //buscar dados do usuario
       headers: {
         Authorization: `Bearer ${token}`,
       },

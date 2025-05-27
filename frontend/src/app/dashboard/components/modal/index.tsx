@@ -20,7 +20,7 @@ export function Modalorder() {
           <X size={24} color="#FFF" />
         </button>
 
-        <article className={styles.container}>
+        <section className={styles.container}>
           <h2>Detalhes do pedido</h2>
 
           <span className={styles.table}>Mesa {order[0].order.table}</span>
@@ -46,7 +46,7 @@ export function Modalorder() {
           <button className={styles.buttonOrder} onClick={handleFinishOrder}>
             Concluir pedido
           </button>
-        </article>
+        </section>
       </section>
     </div>
   );
