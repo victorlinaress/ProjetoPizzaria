@@ -22,4 +22,4 @@ JWT (autenticação)
 API RESTful (backend próprio)
 
 Estruturas do projeto: 
-![Uploading Sem título-2025-03-23-1258.png…]()
+![Sem título-2025-03-23-1258](https://github.com/user-attachments/assets/ce953339-b9a6-4746-aca5-9bbd0c52a2a3)
