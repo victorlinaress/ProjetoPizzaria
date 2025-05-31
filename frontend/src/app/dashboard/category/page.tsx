@@ -8,14 +8,14 @@ export default function Category() {
   async function handleRegisterCategory(formData: FormData) {
     "use server";
 
-    const name = formData.get("name");
+    const name = formData.get("name"); 
     if (!name || name === "") return;
 
     const data = {
-      name: name,
+      name: name.toString().trim(), // remove espaços em branco
     };
 
-    const token = getCookieServer();
+    const token = await getCookieServer();
 
     try {
       const response = await api.post("/category", data, {
@@ -51,3 +51,4 @@ export default function Category() {
     </main>
   );
 }
+

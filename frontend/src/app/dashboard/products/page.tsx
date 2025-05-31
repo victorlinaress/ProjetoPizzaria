@@ -12,8 +12,7 @@ export default async function Product() {
   });
 
   return (
-    <div>
-      <h1>Formulário</h1>
-    </div>
+       <Form categories={response.data} />
+
   );
 }

@@ -8,7 +8,8 @@ import { Button } from "@/app/dashboard/components/button";
 import { api } from "@/services/api";
 import { getCookieClient } from "@/lib/cookieCliente";
 import { toast } from "sonner";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 interface CategoryProps {
   id: string;
@@ -24,13 +25,16 @@ export function Form({ categories }: Props) {
   const [image, setImage] = useState<File>();
   const [previewImage, setPreviewImage] = useState("");
 
-  async function handleRegisterProduct(formData: FormData) {
-    const categoryIndex = formData.get("category");
+  async function handleRegisterProduct(event: React.FormEvent<HTMLFormElement>) {
+    event?.preventDefault()
+    const formData = new FormData(event.currentTarget);
+
+    const categoryId = formData.get("category");
     const name = formData.get("name");
     const price = formData.get("price");
     const description = formData.get("description");
 
-    if (!name || !categoryIndex || !price || !description || !image) {
+    if (!name || !categoryId || !price || !description || !image) {
       toast.warning("Preencha todos os campos");
       return;
     }
@@ -38,10 +42,10 @@ export function Form({ categories }: Props) {
     try {
       const data = new FormData();
 
-      data.append("name", name);
-      data.append("price", price);
+      data.append("name", name as string);
+      data.append("price", price as string);
       data.append("description", description);
-      data.append("category_id", categories[Number(categoryIndex)].id);
+      data.append("category_id", categoryId as string);
       data.append("file", image);
 
       const token = getCookieClient();
@@ -79,7 +83,7 @@ export function Form({ categories }: Props) {
     <main className={styles.container}>
       <h1>Novo produto</h1>
 
-      <form className={styles.form} action={handleRegisterProduct}>
+      <form className={styles.form} onSubmit={handleRegisterProduct}>
         <label className={styles.labelImage}>
           <UploadCloud size={24} color="#FFF" />
           <input
@@ -104,8 +108,8 @@ export function Form({ categories }: Props) {
         </label>
 
         <select name="category" required className={styles.input}>
-          {categories.map((category, index) => (
-            <option key={category.id} value={index}>
+          {categories.map((category) => (
+            <option key={category.id} value={category.id}>
               {category.name}
             </option>
           ))}

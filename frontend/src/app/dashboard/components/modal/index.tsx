@@ -23,10 +23,10 @@ export function Modalorder() {
         <section className={styles.container}>
           <h2>Detalhes do pedido</h2>
 
-          <span className={styles.table}>Mesa {order[0].order.table}</span>
+          <span className={styles.table}>Mesa: {order[0].order.table}</span>
 
           {order[0]?.order?.name && (
-            <span className={styles.name}>Nome {order[0].order.name}</span>
+            <span className={styles.name}>Nome: {order[0].order.name}</span>
           )}
 
           {order.map((item) => (
@@ -41,7 +41,7 @@ export function Modalorder() {
             </section>
           ))}
 
-          <h3 className={styles.total}>Valor total do pedido R${calculeTotalOrder(order)}</h3>
+          <h3 className={styles.total}>Valor total do pedido: R${calculeTotalOrder(order)}</h3>
 
           <button className={styles.buttonOrder} onClick={handleFinishOrder}>
             Concluir pedido

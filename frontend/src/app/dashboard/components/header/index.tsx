@@ -33,7 +33,7 @@ export function Header() {
 
         <nav>
           <Link href={"/dashboard/category"}>Categoria</Link>
-          <Link href={"/dashboard/product"}>Produto</Link>
+          <Link href={"/dashboard/products"}>Produto</Link>
 
           <form>
             <button type="submit"></button>
