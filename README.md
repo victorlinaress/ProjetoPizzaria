@@ -1,6 +1,7 @@
 Este projeto é um sistema completo de gerenciamento de pedidos para pizzarias, desenvolvido com Next.js (App Router), React, TypeScript e integração com backend via API REST. O sistema permite o cadastro de produtos, categorias, gerenciamento de pedidos em tempo real e autenticação de usuários.
 
 ✨ Funcionalidades
+
 Autenticação de usuários (login e cadastro)
 Cadastro e gerenciamento de produtos e categorias
 Upload de imagens para produtos
@@ -10,6 +11,7 @@ Proteção de rotas com middleware e autenticação via JWT
 Feedback visual com toasts para ações do usuário
 
 🛠️ Tecnologias Utilizadas
+
 Next.js (App Router)
 React
 TypeScript
@@ -22,4 +24,5 @@ JWT (autenticação)
 API RESTful (backend próprio)
 
 Estruturas do projeto: 
-![Sem título-2025-03-23-1258](https://github.com/user-attachments/assets/ce953339-b9a6-4746-aca5-9bbd0c52a2a3)
+
+![Sem título-2025-03-23-1258](https://github.com/user-attachments/assets/86632924-da0b-42ed-84db-9f499eb91e22)
